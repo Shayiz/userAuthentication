@@ -1,0 +1,207 @@
+openapi: 3.0.3
+info:
+  title: User authentication API
+  description: User authentication Swagger document
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: user
+    description: operations and apis on user
+  - name: admin
+    description: OPeration on admin
+
+paths:
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: Register a user
+      description: Register a user by name email and password
+      requestBody:
+        description: Register a user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUser'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResgisterResponse'          
+      
+      security:
+        - adminToken: []
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: Login as a user
+      description: Login a user by  email and password
+      requestBody:
+        description: Login a user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+      
+      security:
+        - adminToken: []
+        
+  /user:
+    put:
+      tags:
+        - user
+      summary: Update  a user
+      description: Update a user
+      requestBody:
+        description: Login a user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUserResponse'          
+           
+      
+      security:
+        - adminToken: []
+    delete:
+      tags:
+        - user
+      summary: Delete  a user
+      description: Delete a user
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteUser'          
+      
+      security:
+        - adminToken: []
+  /admin/users:
+    get:
+      tags:
+        - admin
+      summary: Delete  a user
+      description: Delete a user
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getUsersResponse'          
+      
+      security:
+        - adminToken: []
+        
+components:
+  schemas:
+    RegisterUser:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type : string
+    ResgisterResponse:
+      type: object
+      properties:
+        message : 
+          type : string
+        jwtToken:
+          type: string
+    LoginUser:
+      type: object
+      properties:
+        email:
+          type : string
+        password:
+          type: string
+          
+    LoginResponse:
+      type : object
+      properties:
+        message:
+          type : string
+        jwtToken:
+          type: string
+    UpdateUser:
+      type: object
+      properties:
+        name: 
+          type: string
+        email:
+          type: string
+        password:
+          type : string
+    UpdateUserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+    DeleteUser:
+      type: object
+      properties:
+        message:
+          type : string
+    getUsersResponse:
+      type: array
+      items:
+        type : object
+        properties:
+          name:
+            type: string
+          email:
+            type: string
+          isActive:
+            type: string
+        
+    
+        
+    
+          
+  securitySchemes:
+    adminToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
