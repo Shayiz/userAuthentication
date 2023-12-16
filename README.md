@@ -1,9 +1,9 @@
 # userAuthentication
 
-This is a document on how to run the application.There is a document on the apis available in swagger(http://localhost:3000/api-docs/)
-1.install nodejs 
-2.install mongodb
-3.pull the repo
+This is a document on how to run the application.There is a document on the apis available in swagger(http://localhost:3000/api-docs/) 
+1. install nodejs 
+2. install mongodb 
+3. pull the repo
 4. in the comand terminal 
 Type the below:
 npm i
