@@ -91,7 +91,7 @@ async function createToken(
   };
 const authorizeAdmin = async (req,res,next) => {
     try {
-        if(! req.user.userType === userTypes[0]){
+        if(!(req.user.userType === userTypes[0])){
             throw new Error(
                 JSON.stringify({
                   code: 401,
